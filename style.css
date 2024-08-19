@@ -144,6 +144,7 @@ nav ul li a:active, nav ul li a:focus, .phone:active, .phone:focus {
 }
 
 .burger_show {
+    display: none;
     transform: translateX(0%);
     transition: transform .5s;
 }
@@ -1132,6 +1133,41 @@ form input:focus {
 }
 
 @media screen and (max-width: 780px) {
+    /* Header */
+
+    header {
+        height: 63px;
+        color: white;
+        background-color: #333333;
+    }
+
+    header .main_nav, header  .main_phone {
+        display: none;
+    }
+
+    .logo_name {
+        font-size: 22px;
+        line-height: 26.82px;
+    }
+
+    .logo_desc {
+        font-size: 10px;
+        line-height: 12.19px;
+    }
+
+    .burger_icon {
+        display: block;
+    }
+
+    .burger_menu {
+        width: 50%;
+    }
+
+    .burger_show {
+        display: block;
+    }
+
+
     .desc_block h1 {
         font-size: 32px;
         line-height: 36px;
@@ -1288,6 +1324,10 @@ form input:focus {
 
     .burger_icon {
         display: block;
+    }
+
+    .burger_menu {
+        width: 70%;
     }
 
     /* Hero */
