@@ -7,27 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
           burgerOpenIcon = document.querySelector('.burger_icon');
 
 
-    function hidePopup() {
-        popup.classList.add('hide');
-        popup.classList.remove('show');
-        document.body.style.overflowY = 'scroll';
-}
 
-    btnPopup.addEventListener('click', () => {
-        popup.classList.add('show');
-        popup.classList.remove('hide');
-        document.body.style.overflow = 'hidden';
-    })
-
-    closePopup.addEventListener('click', hidePopup)
-
-    window.addEventListener('click', (event) => {
-        if (event.target === popup) {
-            hidePopup();
-        }
-    })
-
-
+    // Слайдер
 
     const swiper = new Swiper('.swiper', {
         direction: 'horizontal',
@@ -47,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
 
+    // Бургер меню
+
       burgerOpenIcon.addEventListener('click', () => {
         burgerMenu.classList.toggle('burger_show');
         burgerOpenIcon.classList.toggle('burger_open_icon');
@@ -58,88 +41,144 @@ document.addEventListener('DOMContentLoaded', () => {
       })
 
 
-
-
-
-      var modal = document.getElementById("myModal");
-      var span = document.getElementsByClassName("close")[0];
-      const successfullyText = document.querySelector('.successfully_modal');
-      const errorText = document.querySelector('.error_modal');
-      const cssload = document.querySelector('.cssload-loader');
-
-
-      function showModal() {
-          modal.classList.add('show');
-          modal.classList.remove('hide');
-          document.body.style.overflow = 'hidden';
-      }
-
-      span.onclick = function() {
-        modal.classList.add('hide');
-        modal.classList.remove('show');
-        document.body.style.overflowY = 'scroll';
-      }
-
-      window.onclick = function(event) {
-          if (event.target == modal) {
-            modal.classList.add('hide');
-            modal.classList.remove('show');
-            document.body.style.overflowY = 'scroll';
-          }
-      }
-
-      forms.forEach(form => {
-        form.addEventListener("submit", function(event) {
-          event.preventDefault();
+    // Попап формы
           
-          const nameInput = form.querySelector('.form_name'),
-                emailInput = form.querySelector('.form_phone'),
-                formStatus = form.querySelector('.form_status');
+    function hidePopup() {
+      popup.classList.add('hide');
+      popup.classList.remove('show');
+      document.body.style.overflowY = 'scroll';
+    }
+
+    btnPopup.addEventListener('click', () => {
+        popup.classList.add('show');
+        popup.classList.remove('hide');
+        document.body.style.overflow = 'hidden';
+    })
+
+    closePopup.addEventListener('click', hidePopup)
+
+    window.addEventListener('click', (event) => {
+        if (event.target === popup) {
+            hidePopup();
+        }
+    })
 
 
-            if (!nameInput.value.trim()) {
-                formStatus.innerHTML = 'Пожалуйста заполните Имя корректно!'
-            } else if (!emailInput.value.trim() || emailInput.value.length < 7) {
-              formStatus.innerHTML = 'Пожалуйста заполните Телефон корректно!'
-            } else if (nameInput.value.trim() && emailInput.value.trim() && emailInput.value.length > 7) {
-                formStatus.innerHTML = ''
-                showModal();
 
-                var formData = new FormData(this);
+    // Модальное окно СТАТУСА оптравки форм
+
+    var modal = document.getElementById("myModal");
+    var span = document.getElementsByClassName("close")[0];
+    const successfullyText = document.querySelector('.successfully_modal');
+    const errorText = document.querySelector('.error_modal');
+    const cssload = document.querySelector('.cssload-loader');
+
+
+    function showModal() {
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+        document.body.style.overflow = 'hidden';
+    }
+
+    span.onclick = function() {
+      modal.classList.add('hide');
+      modal.classList.remove('show');
+      document.body.style.overflowY = 'scroll';
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+          modal.classList.add('hide');
+          modal.classList.remove('show');
+          document.body.style.overflowY = 'scroll';
+        }
+    }
+
+
+
+    // Отправка форм
+
+    forms.forEach(form => {
+      form.addEventListener("submit", function(event) {
+        event.preventDefault();
         
-                fetch("mail.php", {
-                    method: "POST",
-                    body: formData
-                }).then(response => response.text())
-                  .then(data => {
-                      console.log(data);
-                      if (data.trim() === "Message has been sent") {
-                          nameInput.value = '';
-                          emailInput.value = '';
-                          popup.classList.add('hide');
-                          popup.classList.remove('show');
-                          successfullyText.classList.add('show');
-                          cssload.classList.add('hide');
+        const nameInput = form.querySelector('.form_name'),
+              emailInput = form.querySelector('.form_phone'),
+              formStatus = form.querySelector('.form_status');
+
+
+          if (!nameInput.value.trim()) {
+              formStatus.innerHTML = 'Пожалуйста заполните Имя корректно!'
+          } else if (!emailInput.value.trim() || emailInput.value.length < 7) {
+            formStatus.innerHTML = 'Пожалуйста заполните Телефон корректно!'
+          } else if (nameInput.value.trim() && emailInput.value.trim() && emailInput.value.length > 7) {
+              formStatus.innerHTML = ''
+              showModal();
+
+              var formData = new FormData(this);
+      
+              fetch("mail.php", {
+                  method: "POST",
+                  body: formData
+              }).then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    if (data.trim() === "Message has been sent") {
+                        nameInput.value = '';
+                        emailInput.value = '';
+                        popup.classList.add('hide');
+                        popup.classList.remove('show');
+                        successfullyText.classList.add('show');
+                        cssload.classList.add('hide');
+                        errorText.classList.remove('show');
+                        setTimeout(() => {
+                          modal.classList.remove('show');
+                          modal.classList.add('hide');
+                          document.body.style.overflowY = 'scroll';
+                          successfullyText.classList.remove('show');
+                          successfullyText.classList.remove('hide');
+                          cssload.classList.remove('hide');
+                          cssload.classList.remove('show');
+                          errorText.classList.remove('hide');
                           errorText.classList.remove('show');
-                          setTimeout(() => {
-                            modal.classList.remove('show');
-                            modal.classList.add('hide');
-                            document.body.style.overflowY = 'scroll';
-                            successfullyText.classList.remove('show');
-                            successfullyText.classList.remove('hide');
-                            cssload.classList.remove('hide');
-                            cssload.classList.remove('show');
-                            errorText.classList.remove('hide');
-                            errorText.classList.remove('show');
-                          }, 3000)
-                      } else {
-                          errorText.classList.add('show');
-                         successfullyText.classList.remove('show');
-                      }
-                  }).catch(error => {
-                      console.error('Error:', error);
-                  });    
-                }
-          })
+                        }, 3000)
+                    } else {
+                        errorText.classList.add('show');
+                        successfullyText.classList.remove('show');
+                    }
+                }).catch(error => {
+                    console.error('Error:', error);
+                });    
+              }
+        })
+    });
+
+
+
+
+    // Навигация
+
+    const navLi = document.querySelectorAll('.nav_item a');
+
+    navLi.forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+
+          if (targetElement) {
+              targetElement.scrollIntoView({
+                  behavior: 'smooth'
+                  
+              });
+          }
+            burgerMenu.classList.remove('burger_show');
+            burgerOpenIcon.classList.remove('burger_open_icon');
+            if (burgerMenu.classList.contains('burger_show')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflowY = 'scroll';
+            }
       });
+    });
 })
