@@ -102,6 +102,10 @@ nav ul li a:active, nav ul li a:focus, .phone:active, .phone:focus {
     color: black;
 }
 
+.sec_phone:hover {
+    color: white;
+}
+
 .burger_icon {
     cursor: pointer;
     display: none;
