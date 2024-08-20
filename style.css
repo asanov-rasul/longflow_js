@@ -655,6 +655,7 @@ form input:focus {
     font-size: 20px;
     font-weight: 700;
     display: none;
+    text-align: center;
 }
 
 .modal-content .error_modal {
