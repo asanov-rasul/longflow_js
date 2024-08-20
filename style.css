@@ -1284,10 +1284,86 @@ form input:focus {
     .close_pop_up {
         font-size: 24px;
     }
+
+    .swiper-slide .right_block .mini_heading {
+        text-align: center;
+    }
+
+    .swiper-slide .right_block .heading {
+        text-align: center;
+    }
+
+    .swiper-slide .right_block .desc {
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 620px) {
+    .swiper {
+        margin-top: 40px;
+        height: 455px;
+        display: flex !important;
+        justify-content: center;
+    }
+
+    .swiper-wrapper {
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    .swiper-slide {
+        flex-direction: column;
+        gap: 0;
+        border-radius: 20px;
+        padding: 10px 22px 36px;
+        margin: 0px;
+        box-shadow: none;
+    }
+
+    .swiper-button-prev, .swiper-button-next {
+        display: none !important;
+    }
+
+    .swiper-slide .left_block {
+        gap: 10px;
+    }
+
+    .swiper-slide .left_block img {
+        width: 250px;
+        margin: 0 auto;
+    }
+
+    .swiper-slide .left_block .img_desc {
+        font-size: 20px;
+        line-height: 24.38px;
+    }
+
+    .swiper-slide .right_block .mini_heading {
+        font-size: 16px;
+        line-height: 19.5px;
+        text-align: center;
+    }
+
+    .swiper-slide .right_block .heading {
+        font-size: 18px;
+        line-height: 21.94px;
+        text-align: center;
+        margin: 10px 0;
+    }
+
+    .swiper-slide .right_block .desc {
+        font-size: 16px;
+        line-height: 19.5px;
+        text-align: center;
+    }
+
+    .swiper-slide .right_block .btn {
+        display: none;
+    }
 }
 
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 426px) {
 
     .container {
         padding: 0 16px;
@@ -1422,7 +1498,7 @@ form input:focus {
 
     .swiper {
         margin-top: 40px;
-        height: 455px;
+        height: 470px;
         display: flex !important;
         justify-content: center;
     }
