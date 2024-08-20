@@ -107,11 +107,11 @@ document.addEventListener('DOMContentLoaded', () => {
               formStatus = form.querySelector('.form_status');
 
 
-          if (!nameInput.value.trim()) {
+          if (!nameInput.value.trim() || nameInput.value.length < 2) {
               formStatus.innerHTML = 'Пожалуйста заполните Имя корректно!'
           } else if (!emailInput.value.trim() || emailInput.value.length < 7) {
             formStatus.innerHTML = 'Пожалуйста заполните Телефон корректно!'
-          } else if (nameInput.value.trim() && emailInput.value.trim() && emailInput.value.length > 7) {
+          } else if (nameInput.value.trim() && nameInput.value.length >= 2 && emailInput.value.trim() && emailInput.value.length >= 7) {
               formStatus.innerHTML = ''
               showModal();
 
@@ -143,6 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                           errorText.classList.remove('show');
                         }, 3000)
                     } else {
+                        cssload.classList.add('hide');
                         errorText.classList.add('show');
                         successfullyText.classList.remove('show');
                     }
