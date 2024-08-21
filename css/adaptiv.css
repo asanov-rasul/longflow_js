@@ -240,9 +240,14 @@
     }
 
     .image_form_block {
-        margin-bottom: 350px;
+        height: 400px;
+        margin-bottom: 0;
         display: flex;
         align-items: end;
+    }
+
+    .image_form_block img {
+        height: 100%;
     }
 
     /* Footer */
@@ -768,8 +773,8 @@
     }
 
     .form_sec ul li {
-        width: 30px;
-        height: 30px;
+        width: 35px;
+        height: 35px;
     }
 
     .form_sec ul li img {
