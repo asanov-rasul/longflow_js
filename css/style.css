@@ -194,8 +194,9 @@ nav ul li a:active, nav ul li a:focus, .phone:active, .phone:focus {
     font-weight: 400;
     line-height: 48.76px;
     text-align: center;
-    width: 392px;
-    padding: 35px 0;
+    max-width: 389px;
+    width: 100%;
+    padding: 26.625px 0;
     text-align: center;
     background-color: #1C50FC;
     color: white;
