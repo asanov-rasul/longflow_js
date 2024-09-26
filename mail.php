@@ -4,10 +4,23 @@ require_once('phpmailer/PHPMailerAutoload.php');
 $mail = new PHPMailer;
 $mail->CharSet = 'utf-8';
 
-$name = $_POST['name'];
-$phone = $_POST['phone'];
+// Валидация входных данных
+$name = isset($_POST['name']) ? trim($_POST['name']) : '';
+$phone = isset($_POST['phone']) ? trim($_POST['phone']) : '';
 
-//$mail->SMTPDebug = 3;                               // Enable verbose debug output
+if (empty($name) || strlen($name) < 2) {
+    echo "Пожалуйста, заполните Имя корректно!";
+    exit;
+}
+
+if (empty($phone) || strlen($phone) < 7) {
+    echo "Пожалуйста, заполните Номер телефона корректно!";
+    exit;
+}
+
+// Экранирование входных данных
+$name = htmlspecialchars($name);
+$phone = htmlspecialchars($phone);
 
 
 try {
@@ -21,12 +34,6 @@ try {
 
     $mail->setFrom('longflowstudio@gmail.com'); // от кого будет уходить письмо?
     $mail->addAddress('longflowstudio@gmail.com');     // Кому будет уходить письмо 
-    //$mail->addAddress('ellen@example.com');               // Name is optional
-    //$mail->addReplyTo('info@example.com', 'Information');
-    //$mail->addCC('cc@example.com');
-    //$mail->addBCC('bcc@example.com');
-    //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
-    //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    // Optional name
     $mail->isHTML(true);                                  // Set email format to HTML
 
     $mail->Subject = 'Заявка с сайта';

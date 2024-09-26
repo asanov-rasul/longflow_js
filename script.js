@@ -67,8 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Модальное окно СТАТУСА оптравки форм
 
-    var modal = document.getElementById("myModal");
-    var span = document.getElementsByClassName("close")[0];
+    let modal = document.getElementById("myModal");
+    let span = document.getElementsByClassName("close")[0];
     const successfullyText = document.querySelector('.successfully_modal');
     const errorText = document.querySelector('.error_modal');
     const cssload = document.querySelector('.cssload-loader');
@@ -107,25 +107,36 @@ document.addEventListener('DOMContentLoaded', () => {
               formStatus = form.querySelector('.form_status');
 
 
-          if (!nameInput.value.trim() || nameInput.value.length < 2) {
-            formStatus.classList.remove('hide')
-            formStatus.innerHTML = 'Пожалуйста заполните Имя корректно!'
-          } else if (!emailInput.value.trim() || emailInput.value.length < 7) {
-            formStatus.classList.remove('hide')
-            formStatus.innerHTML = 'Пожалуйста заполните Телефон корректно!'
-          } else if (nameInput.value.trim() && nameInput.value.length >= 2 && emailInput.value.trim() && emailInput.value.length >= 7) {
-              formStatus.classList.add('hide')
-              formStatus.innerHTML = ''
-              showModal();
+          // Функция для отображения статуса
+          function showStatus(message) {
+            formStatus.classList.remove('hide');
+            formStatus.innerHTML = message;
+          }
 
-              var formData = new FormData(this);
+          // Проверка ввода
+          if (!nameInput.value.trim() || nameInput.value.length < 2 || nameInput.value.length > 30) {
+            showStatus('Пожалуйста заполните Имя корректно!');
+          } else if (!emailInput.value.trim() || emailInput.value.length < 7 || emailInput.value.length > 30) {
+            showStatus('Пожалуйста заполните Телефон корректно!');
+          } else {
+            formStatus.classList.add('hide');
+            formStatus.innerHTML = '';
+            showModal();
+
+
+              let formData = new FormData(this);
+
+              // Проверка, есть ли данные в форме
+              if (Array.from(formData.entries()).some(([_, value]) => !value.trim())) {
+                showStatus('Форма не должна быть пустой!');
+                return; // Прекращаем выполнение
+              }
       
               fetch("mail.php", {
                   method: "POST",
                   body: formData
               }).then(response => response.text())
                 .then(data => {
-                    console.log(data);
                     if (data.trim() === "Message has been sent") {
                         nameInput.value = '';
                         emailInput.value = '';
